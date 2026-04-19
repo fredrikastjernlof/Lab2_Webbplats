@@ -12,98 +12,169 @@ export async function initEdit() {
     // Hämta formuläret
     const form = document.getElementById("workexperience-form");
 
+    if (!form) return;
+
+    // Hämta formulärfält
+    const companyInput = document.getElementById("companyname");
+    const jobtitleInput = document.getElementById("jobtitle");
+    const locationInput = document.getElementById("location");
+    const startdateInput = document.getElementById("startdate");
+    const enddateInput = document.getElementById("enddate");
+    const ongoingInput = document.getElementById("ongoing");
+    const descriptionInput = document.getElementById("description");
+    const message = document.getElementById("form-message");
+
+    // Ta bort röd markering när användaren ändrar i fält
+    companyInput.addEventListener("input", () => companyInput.classList.remove("input-error"));
+    jobtitleInput.addEventListener("input", () => jobtitleInput.classList.remove("input-error"));
+    locationInput.addEventListener("input", () => locationInput.classList.remove("input-error"));
+    startdateInput.addEventListener("input", () => startdateInput.classList.remove("input-error"));
+    enddateInput.addEventListener("input", () => enddateInput.classList.remove("input-error"));
+    descriptionInput.addEventListener("input", () => descriptionInput.classList.remove("input-error"));
+
+    // När checkbox ändras, ta bort fel på slutdatum
+    ongoingInput.addEventListener("change", () => {
+        enddateInput.classList.remove("input-error");
+    });
+
     try {
         // Hämta specifik post från API
         const response = await fetch(`${url}/${id}`);
         const item = await response.json();
 
         // Fyll formuläret med befintlig data
-        document.getElementById("companyname").value = item.companyname;
-        document.getElementById("jobtitle").value = item.jobtitle;
-        document.getElementById("location").value = item.location;
-        document.getElementById("startdate").value = item.startdate.split("T")[0];
-        document.getElementById("enddate").value = item.enddate ? item.enddate.split("T")[0] : "";
-        document.getElementById("ongoing").checked = !item.enddate;
-        document.getElementById("description").value = item.description;
+        companyInput.value = item.companyname;
+        jobtitleInput.value = item.jobtitle;
+        locationInput.value = item.location;
+        startdateInput.value = item.startdate.split("T")[0];
+        enddateInput.value = item.enddate ? item.enddate.split("T")[0] : "";
+        ongoingInput.checked = !item.enddate;
+        descriptionInput.value = item.description;
 
     } catch (error) {
         console.error("Fel vid hämtning av post:", error);
     }
 
     // Eventlyssnare för att uppdatera posten
-    if (form) {
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.textContent = "Sparar...";
+        message.innerHTML = "";
 
-            // Hämta inputvärden
-            const companyname = document.getElementById("companyname").value;
-            const jobtitle = document.getElementById("jobtitle").value;
-            const location = document.getElementById("location").value;
-            const startdate = document.getElementById("startdate").value;
-            const enddate = document.getElementById("enddate").value;
-            const ongoing = document.getElementById("ongoing").checked;
-            const description = document.getElementById("description").value;
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = "Sparar...";
 
-            const today = new Date().toISOString().split("T")[0];
+        // Hämta inputvärden
+        const companyname = companyInput.value;
+        const jobtitle = jobtitleInput.value;
+        const location = locationInput.value;
+        const startdate = startdateInput.value;
+        const enddate = enddateInput.value;
+        const ongoing = ongoingInput.checked;
+        const description = descriptionInput.value;
 
-            // Validering
-            if (startdate > today) {
-                console.log("Fel: startdatum kan inte vara i framtiden");
-                submitButton.disabled = false;
-                submitButton.textContent = "Spara ändringar";
-                return;
-            }
+        const today = new Date().toISOString().split("T")[0];
 
-            if (!ongoing && !enddate) {
-                console.log("Fel: ange slutdatum eller välj pågående");
-                submitButton.disabled = false;
-                submitButton.textContent = "Spara ändringar";
-                return;
-            }
+        // Samla alla fel i en array
+        const errors = [];
 
-            if (ongoing && enddate) {
-                console.log("Fel: välj antingen slutdatum eller pågående, inte båda");
-                submitButton.disabled = false;
-                submitButton.textContent = "Spara ändringar";
-                return;
-            }
+        // Rensa gamla felmarkeringar
+        const inputs = form.querySelectorAll("input, textarea");
 
-            if (!ongoing && enddate && startdate > enddate) {
-                console.log("Fel: startdatum måste vara före slutdatum");
-                submitButton.disabled = false;
-                submitButton.textContent = "Spara ändringar";
-                return;
-            }
-
-            try {
-                // Skicka PUT-anrop för att uppdatera posten
-                await fetch(`${url}/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        companyname,
-                        jobtitle,
-                        location,
-                        startdate,
-                        enddate: ongoing ? null : enddate,
-                        description
-                    })
-                });
-
-                // Skicka tillbaka användaren till startsidan
-                window.location.href = "index.html";
-
-            } catch (error) {
-                console.error("Fel vid uppdatering:", error);
-                submitButton.disabled = false;
-                submitButton.textContent = "Spara ändringar";
-            }
+        inputs.forEach((input) => {
+            input.classList.remove("input-error");
         });
-    }
+
+        // Validering textfält
+        if (!companyname.trim()) {
+            errors.push("Företagsnamn måste fyllas i.");
+            companyInput.classList.add("input-error");
+        }
+
+        if (!jobtitle.trim()) {
+            errors.push("Jobbtitel måste fyllas i.");
+            jobtitleInput.classList.add("input-error");
+        }
+
+        if (!location.trim()) {
+            errors.push("Plats måste fyllas i.");
+            locationInput.classList.add("input-error");
+        }
+
+        if (!description.trim()) {
+            errors.push("Beskrivning måste fyllas i.");
+            descriptionInput.classList.add("input-error");
+        }
+
+        // Validering datum
+        if (!startdate) {
+            errors.push("Startdatum måste fyllas i.");
+            startdateInput.classList.add("input-error");
+        }
+
+        if (startdate && startdate > today) {
+            errors.push("Startdatum kan inte vara i framtiden.");
+            startdateInput.classList.add("input-error");
+        }
+
+        if (!ongoing && !enddate) {
+            errors.push("Ange slutdatum eller välj pågående.");
+            enddateInput.classList.add("input-error");
+        }
+
+        if (ongoing && enddate) {
+            errors.push("Välj antingen slutdatum eller pågående, inte båda.");
+            enddateInput.classList.add("input-error");
+        }
+
+        if (!ongoing && startdate && enddate && startdate > enddate) {
+            errors.push("Startdatum måste vara före slutdatum.");
+            startdateInput.classList.add("input-error");
+            enddateInput.classList.add("input-error");
+        }
+
+        // Visa alla fel på en gång
+        if (errors.length > 0) {
+            const ul = document.createElement("ul");
+
+            errors.forEach((errorText) => {
+                const li = document.createElement("li");
+                li.textContent = errorText;
+                ul.appendChild(li);
+            });
+
+            message.appendChild(ul);
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Spara ändringar";
+            return;
+        }
+
+        try {
+            // Skicka PUT-anrop för att uppdatera posten
+            await fetch(`${url}/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    companyname,
+                    jobtitle,
+                    location,
+                    startdate,
+                    enddate: ongoing ? null : enddate,
+                    description
+                })
+            });
+
+            // Skicka tillbaka användaren till startsidan
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error("Fel vid uppdatering:", error);
+            submitButton.disabled = false;
+            submitButton.textContent = "Spara ändringar";
+        }
+    });
 }
