@@ -20,6 +20,29 @@ export function initAddForm() {
             const ongoing = document.getElementById("ongoing").checked;
             const description = document.getElementById("description").value;
 
+            const today = new Date().toISOString().split("T")[0];
+
+             // Validering
+            if (startdate > today) {
+                console.log("Fel: startdatum kan inte vara i framtiden");
+                return;
+            }
+
+            if (!ongoing && !enddate) {
+                console.log("Fel: ange slutdatum eller välj pågående");
+                return;
+            }
+
+              if (ongoing && enddate) {
+                console.log("Fel: välj antingen slutdatum eller pågående, inte båda");
+                return;
+            }
+
+            if (!ongoing && enddate && startdate > enddate) {
+                console.log("Fel: startdatum måste vara före slutdatum");
+                return;
+            }
+
             //Logga resultatet
             console.log({
                 companyname,
