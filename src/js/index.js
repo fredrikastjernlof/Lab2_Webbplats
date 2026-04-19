@@ -30,11 +30,15 @@ export async function getExperiences() {
       `;
 
             const deleteBtn = li.querySelector(".delete-btn");
-            
+
             // Eventlyssnare för att ta bort arbetserfarenhet
             deleteBtn.addEventListener("click", () => {
                 const id = deleteBtn.dataset.id;
-                deleteExperience(id);
+                const confirmed = confirm("Är du säker på att du vill ta bort posten?");
+
+                if (confirmed) {
+                    deleteExperience(id);
+                }
             });
 
             list.appendChild(li);
