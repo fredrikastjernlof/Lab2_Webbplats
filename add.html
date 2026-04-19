@@ -4,25 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/scss/style.scss">
     <title>Lägg till arbetserfarenhet</title>
 </head>
 
 <body>
-    <header>
-        <h1>Mitt CV</h1>
-        <nav>
-            <a href="index.html">Startsida</a>
-            <a href="add.html">Lägg till</a>
-            <a href="about.html">Om webbplatsen</a>
+    <header class="site-header">
+        <h1 class="site-brand">Mitt CV</h1>
+        <nav class="site-nav">
+            <a class="site-nav-link" href="index.html">Startsida</a>
+            <a class="site-nav-link" href="add.html">Lägg till</a>
+            <a class="site-nav-link" href="about.html">Om webbplatsen</a>
         </nav>
     </header>
 
-    <main>
-        <h1>Lägg till arbetserfarenhet</h1>
+    <main class="page-main container">
+        <h1 class="page-title">Lägg till arbetserfarenhet</h1>
 
-        <div id="form-message"></div>
+        <div id="form-message" class="form-message"></div>
 
-        <form id="workexperience-form">
+        <form id="workexperience-form" class="work-form" novalidate>
             <div class="form-div">
                 <label for="companyname">Företag</label>
                 <input type="text" id="companyname" name="companyname" required>
@@ -57,14 +58,15 @@
                 <textarea name="description" id="description" required></textarea>
             </div>
 
-            <button type="submit">Spara</button>
+            <button class="form-submit-btn" type="submit">Lägg till</button>
         </form>
-
     </main>
 
-    <footer>
-        <p>&copy; 2026</p>
-    </footer>
+   <footer class="site-footer">
+    <p>&copy; 2026</p>
+    <p>Denna webbplats är skapad av Fredrika Stjernlöf som ett delmoment i kursen Backendbaserad webbutveckling,
+      Mittuniversitetet i Sundsvall.</p>
+  </footer>
     <script type="module" src="/src/js/main.js"></script>
 </body>
 

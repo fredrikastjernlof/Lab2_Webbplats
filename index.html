@@ -4,63 +4,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV-startsida</title>
+  <link rel="stylesheet" href="/src/scss/style.scss">
+  <title>Om webbplatsen</title>
 </head>
 
 <body>
- 
-  <header>
-    <h1>Mitt CV</h1>
-    <nav>
-      <a href="index.html">Startsida</a>
-      <a href="add.html">Lägg till</a>
-      <a href="about.html">Om webbplatsen</a>
+  <header class="site-header">
+    <h1 class="site-brand">Mitt CV</h1>
+    <nav class="site-nav">
+      <a class="site-nav-link" href="index.html">Startsida</a>
+      <a class="site-nav-link" href="add.html">Lägg till</a>
+      <a class="site-nav-link" href="about.html">Om webbplatsen</a>
     </nav>
   </header>
 
-  <main class="cv-main-layout">
-  <section class="cv-sheet">
+  <main class="page-main container cv-main-layout">
+    <section class="cv-sheet">
 
-    <section class="cv-hero">
-      <h1 class="cv-name">Förnamn Efternamn</h1>
-      <p class="cv-title">Frontendutvecklare</p>
-    </section>
-
-    <section class="cv-content">
-      <aside class="cv-sidebar">
-
-        <section class="cv-block cv-block-education">
-          <h2 class="cv-heading">Utbildning</h2>
-          <div class="cv-text-group">
-            <p class="cv-text">Webbutveckling, Mittuniversitetet</p>
-          </div>
-        </section>
-
-        <section class="cv-block cv-block-about">
-          <h2 class="cv-heading">Om personen</h2>
-          <div class="cv-text-group">
-            <p class="cv-text">Kort beskrivning om personen...</p>
-          </div>
-        </section>
-
-      </aside>
-
-      <section class="cv-experience-section">
-        <h2 class="cv-heading">Arbetserfarenheter</h2>
-
-        <div id="experience-message" class="cv-message"></div>
-
-        <ul id="experience-list" class="experience-list">
-          <li class="experience-item">Här ska data från API visas</li>
-        </ul>
+      <section class="cv-hero">
+        <h1 class="cv-name">Förnamn Efternamn</h1>
+        <p class="cv-title">Frontendutvecklare</p>
       </section>
+
+      <section class="cv-content">
+        <aside class="cv-sidebar">
+
+          <section class="cv-block cv-block-education">
+            <h2 class="cv-heading">Utbildning</h2>
+            <div class="cv-text-group">
+              <p class="cv-text">Webbutveckling, Mittuniversitetet</p>
+            </div>
+          </section>
+
+          <section class="cv-block cv-block-about">
+            <h2 class="cv-heading">Om personen</h2>
+            <div class="cv-text-group">
+              <p class="cv-text">Kort beskrivning om personen...</p>
+            </div>
+          </section>
+
+        </aside>
+
+        <section class="cv-experience-section">
+          <h2 class="cv-heading">Arbetserfarenheter</h2>
+
+          <div id="experience-message" class="cv-message"></div>
+
+          <ul id="experience-list" class="experience-list">
+            <li class="experience-item"></li>
+          </ul>
+        </section>
+      </section>
+
     </section>
+  </main>
 
-  </section>
-</main>
-
-  <footer>
+  <footer class="site-footer">
     <p>&copy; 2026</p>
+    <p>Denna webbplats är skapad av Fredrika Stjernlöf som ett delmoment i kursen Backendbaserad webbutveckling,
+      Mittuniversitetet i Sundsvall.</p>
   </footer>
   <script type="module" src="/src/js/main.js"></script>
 </body>
