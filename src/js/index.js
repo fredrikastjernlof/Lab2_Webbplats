@@ -26,7 +26,16 @@ export async function getExperiences() {
         <p>${item.jobtitle} - ${item.location}</p>
         <p>${start} - ${end}</p>
         <p>${item.description}</p>
+        <button data-id="${item.id}" class="delete-btn">Ta bort</button>
       `;
+
+            const deleteBtn = li.querySelector(".delete-btn");
+            
+            // Eventlyssnare för att ta bort arbetserfarenhet
+            deleteBtn.addEventListener("click", () => {
+                const id = deleteBtn.dataset.id;
+                deleteExperience(id);
+            });
 
             list.appendChild(li);
         });
@@ -36,3 +45,15 @@ export async function getExperiences() {
     }
 }
 
+// Ta bort arbetserfarenheter från cv
+async function deleteExperience(id) {
+    try {
+        await fetch(`${url}/${id}`, {
+            method: "DELETE"
+        });
+
+        getExperiences();
+    } catch (error) {
+        console.error("Fel vid borttagning:", error);
+    }
+}
