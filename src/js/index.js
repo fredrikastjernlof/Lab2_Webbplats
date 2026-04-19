@@ -21,16 +21,35 @@ export async function getExperiences() {
             const start = item.startdate.split("T")[0];
             const end = item.enddate ? item.enddate.split("T")[0] : "Pågående";
 
-            li.innerHTML = `
-        <h3>${item.companyname}</h3>
-        <p>${item.jobtitle} - ${item.location}</p>
-        <p>${start} - ${end}</p>
-        <p>${item.description}</p>
-        <a href="edit.html?id=${item.id}" class="edit-btn">Ändra</a>
-        <button data-id="${item.id}" class="delete-btn">Ta bort</button>
-      `;
+            const title = document.createElement("h3");
+            title.textContent = item.companyname;
 
-            const deleteBtn = li.querySelector(".delete-btn");
+            const info = document.createElement("p");
+            info.textContent = `${item.jobtitle} - ${item.location}`;
+
+            const dates = document.createElement("p");
+            dates.textContent = `${start} - ${end}`;
+
+            const desc = document.createElement("p");
+            desc.textContent = item.description;
+
+            const editLink = document.createElement("a");
+            editLink.href = `edit.html?id=${item.id}`;
+            editLink.classList.add("edit-btn");
+            editLink.textContent = "Ändra";
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.dataset.id = item.id;
+            deleteBtn.textContent = "Ta bort";
+
+            li.appendChild(title);
+            li.appendChild(info);
+            li.appendChild(dates);
+            li.appendChild(desc);
+            li.appendChild(editLink);
+            li.appendChild(deleteBtn);
 
             // Eventlyssnare för att ta bort arbetserfarenhet
             deleteBtn.addEventListener("click", () => {
