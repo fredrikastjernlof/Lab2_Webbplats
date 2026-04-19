@@ -26,6 +26,7 @@ export async function getExperiences() {
         <p>${item.jobtitle} - ${item.location}</p>
         <p>${start} - ${end}</p>
         <p>${item.description}</p>
+        <a href="edit.html?id=${item.id}" class="edit-btn">Ändra</a>
         <button data-id="${item.id}" class="delete-btn">Ta bort</button>
       `;
 
