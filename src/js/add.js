@@ -8,7 +8,7 @@ export function initAddForm() {
 
     //Eventlyssnare
     if (form) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             // Hämta input
@@ -22,7 +22,7 @@ export function initAddForm() {
 
             const today = new Date().toISOString().split("T")[0];
 
-             // Validering
+            // Validering
             if (startdate > today) {
                 console.log("Fel: startdatum kan inte vara i framtiden");
                 return;
@@ -33,7 +33,7 @@ export function initAddForm() {
                 return;
             }
 
-              if (ongoing && enddate) {
+            if (ongoing && enddate) {
                 console.log("Fel: välj antingen slutdatum eller pågående, inte båda");
                 return;
             }
@@ -43,16 +43,24 @@ export function initAddForm() {
                 return;
             }
 
-            //Logga resultatet
-            console.log({
-                companyname,
-                jobtitle,
-                location,
-                startdate,
-                enddate,
-                ongoing,
-                description
+            // Lägg till POST i db
+            await fetch("https://lab2-webbtjanst.onrender.com/workexperience", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    companyname,
+                    jobtitle,
+                    location,
+                    startdate,
+                    enddate: ongoing ? null : enddate,
+                    description
+                })
             });
+
+            console.log("Post skickad!");
+
         });
     }
 }
