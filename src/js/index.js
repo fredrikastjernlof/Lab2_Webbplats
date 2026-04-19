@@ -8,9 +8,21 @@ export async function getExperiences() {
         const response = await fetch(url);
         const data = await response.json();
 
+        // Sortera nyast först
+        data.sort((a, b) => new Date(b.startdate) - new Date(a.startdate));
+
         const list = document.getElementById("experience-list");
 
         list.innerHTML = ""; // töm listan först
+
+        // Om det inte finns några poster att visa i databasen
+        if (data.length === 0) {
+            const li = document.createElement("li");
+            li.textContent = "Du har inte lagt till några arbetserfarenheter ännu.";
+            li.classList.add("empty-message");
+            list.appendChild(li);
+            return;
+        }
 
         // Loopa genom alla objekt och skriv ut i DOM
         data.forEach((item) => {
