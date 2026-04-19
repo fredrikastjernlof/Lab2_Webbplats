@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/scss/style.scss">
+    <title>Om webbplatsen</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <h1 class="site-brand">Mitt CV</h1>
+      <nav class="site-nav">
+        <a class="site-nav-link" href="index.html">Startsida</a>
+        <a class="site-nav-link" href="add.html">Lägg till</a>
+        <a class="site-nav-link" href="about.html">Om webbplatsen</a>
+      </nav>
+    </header>
+
+    <main class="page-main container">
+      <h1 class="page-title">Om webbplatsen</h1>
+
+      <p class="intro-text">
+        Detta är en webbapplikation som har skapats som en del av laboration 2 i kursen Backendbaserad webbutveckling.
+        Syftet med uppgiften har varit att skapa en fristående frontend med HTML, CSS och JavaScript som
+        kommunicerar med en egen REST-baserad webbtjänst (skapdes i delmoment 1) via Fetch API.
+      </p>
+
+      <section class="about-section">
+        <h2 class="section-title">Syfte</h2>
+        <p class="section-text">
+          Webbplatsens syfte är att visa, lägga till, uppdatera och ta bort arbetserfarenheter i ett CV.
+          Informationen hämtas från en separat backend/webbtjänst och presenteras på webbplatsen i ett
+          användarvänligt gränssnitt. På så sätt har jag fått öva på hur frontend och backend samverkar
+          i en modern webbapplikation.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="section-title">Funktionalitet</h2>
+        <p class="section-text">
+          På startsidan visas alla sparade arbetserfarenheter som hämtas från webbtjänsten med ett GET-anrop.
+          Det finns även möjlighet att lägga till nya poster via ett formulär, redigera befintliga poster
+          samt ta bort poster från databasen. Webbplatsen använder alltså flera delar av CRUD:
+          läsa, skapa, uppdatera och radera data.
+        </p>
+        <p class="section-text">
+          Innan formulär skickas valideras användarens inmatning med JavaScript. Om något är fel visas
+          tydliga felmeddelanden direkt på sidan, och felaktiga fält markeras för att göra det lättare
+          för användaren att se vad som behöver rättas.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="section-title">Teknik</h2>
+        <p class="section-text">
+          Frontend-delen är byggd med HTML, CSS och JavaScript. För att kommunicera med webbtjänsten används
+          Fetch API. Backend-delen är byggd med Node.js och Express, och data lagras i relationsdatabasen PostgreSQL.
+        </p>
+        <p class="section-text">
+          Webbplatsen är uppdelad i flera undersidor och JavaScript-koden är strukturerad i separata filer
+          för att hantera hämtning av data, tillägg av nya poster och redigering av befintliga poster.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="section-title">Databas och webbtjänst</h2>
+        <p class="section-text">
+          Den bakomliggande webbtjänsten är REST-baserad och returnerar data i JSON-format. Varje post
+          innehåller information om arbetserfarenhet, till exempel företagsnamn, jobbtitel, plats,
+          startdatum, slutdatum och beskrivning. Webbtjänsten hanterar anrop med bland annat GET, POST,
+          PUT och DELETE.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="section-title">Slutsatser</h2>
+        <p class="section-text">
+          Genom uppgiften har jag fått en bättre förståelse för hur en frontend-applikation kan konsumera
+          en webbtjänst och hur dataflödet fungerar mellan klient, server och databas. Jag har också fått
+          öva på att arbeta med Fetch API, formulärhantering, validering och felhantering i JavaScript.
+        </p>
+        <p class="section-text">
+          En viktig lärdom från arbetet är hur stor betydelse tydlig validering och användarvänliga
+          felmeddelanden har för upplevelsen i ett formulär. Jag har även fått bättre förståelse för hur
+          CRUD-operationer används i praktiken och hur en applikation kan struktureras upp i mindre delar
+          för att bli enklare att underhålla.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+    <p>&copy; 2026</p>
+    <p>Denna webbplats är skapad av Fredrika Stjernlöf som ett delmoment i kursen Backendbaserad webbutveckling,
+      Mittuniversitetet i Sundsvall.</p>
+  </footer>
+  </body>
+</html>
