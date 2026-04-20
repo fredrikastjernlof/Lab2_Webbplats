@@ -10,12 +10,14 @@
 
 <body>
     <header class="site-header">
-        <h1 class="site-brand">Mitt CV</h1>
-        <nav class="site-nav">
-            <a class="site-nav-link" href="index.html">Startsida</a>
-            <a class="site-nav-link" href="add.html">Lägg till</a>
-            <a class="site-nav-link" href="about.html">Om webbplatsen</a>
-        </nav>
+        <div class="container header-inner">
+            <h1 class="site-brand">Mitt digitala CV</h1>
+            <nav class="site-nav">
+                <a class="site-nav-link" href="index.html">Startsida</a>
+                <a class="site-nav-link current" href="add.html">Lägg till</a>
+                <a class="site-nav-link" href="about.html">Om webbplatsen</a>
+            </nav>
+        </div>
     </header>
 
     <main class="page-main container">
@@ -43,14 +45,15 @@
                 <label for="startdate">Startdatum</label>
                 <input type="date" id="startdate" name="startdate" required>
             </div>
-
+            
             <div class="form-div">
                 <label for="enddate">Slutdatum</label>
                 <input type="date" id="enddate" name="enddate">
-                <label for="ongoing">
+
+                <div class="checkbox-row">
                     <input type="checkbox" id="ongoing" name="ongoing">
-                    Pågående anställning
-                </label>
+                    <label for="ongoing">Pågående anställning</label>
+                </div>
             </div>
 
             <div class="form-div">
@@ -62,11 +65,11 @@
         </form>
     </main>
 
-   <footer class="site-footer">
-    <p>&copy; 2026</p>
-    <p>Denna webbplats är skapad av Fredrika Stjernlöf som ett delmoment i kursen Backendbaserad webbutveckling,
-      Mittuniversitetet i Sundsvall.</p>
-  </footer>
+    <footer class="site-footer">
+        <p>&copy; 2026</p>
+        <p>Denna webbplats är skapad av Fredrika Stjernlöf som ett delmoment i kursen Backendbaserad webbutveckling,
+            Mittuniversitetet i Sundsvall.</p>
+    </footer>
     <script type="module" src="/src/js/main.js"></script>
 </body>
 
