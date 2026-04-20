@@ -34,10 +34,10 @@ export async function getExperiences() {
             const end = item.enddate ? item.enddate.split("T")[0] : "Pågående";
 
             const title = document.createElement("h3");
-            title.textContent = item.companyname;
+            title.textContent = `${item.jobtitle}, ${item.companyname}`;
 
-            const info = document.createElement("p");
-            info.textContent = `${item.jobtitle} - ${item.location}`;
+            const location = document.createElement("p");
+            location.textContent = item.location;
 
             const dates = document.createElement("p");
             dates.textContent = `${start} - ${end}`;
@@ -57,7 +57,7 @@ export async function getExperiences() {
             deleteBtn.textContent = "Ta bort";
 
             li.appendChild(title);
-            li.appendChild(info);
+            li.appendChild(location);
             li.appendChild(dates);
             li.appendChild(desc);
             li.appendChild(editLink);
