@@ -149,7 +149,7 @@ npm run preview
 
 Webbplatsen är publicerad via netlify:
 
-[Öppna webbplats](Länk läggs till här efter publicering)
+[Öppna webbplats](https://lab2webbplats.netlify.app)
 
 ---
 
