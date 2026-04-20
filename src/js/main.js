@@ -13,11 +13,11 @@ if (list) {
 }
 
 // Add-sidan
-if (path.includes("add.html")) {
+if (path.includes("add")) {
   initAddForm();
 }
 
 // Edit-sidan
-if (path.includes("edit.html")) {
+if (path.includes("edit")) {
   initEdit();
 }
